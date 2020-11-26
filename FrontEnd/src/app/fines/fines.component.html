@@ -1,0 +1,54 @@
+<div class="container">
+  <table class="table table-bordered table-responsive-sm table-striped table-light" [hidden]="!aggregateTableFlag">
+    <thead>
+      <th class="font-weight-bold text-center"> </th>
+      <th class="font-weight-bold text-center">Card ID</th>
+      <th class="font-weight-bold text-center">Name</th>
+      <th class="font-weight-bold text-center">Total Fine</th>
+    </thead>
+    <tbody class="results-height">
+      <tr
+        *ngFor="let item of aggregateTable | paginate: {itemsPerPage: 9, currentPage:p, autoHide: true, responsive: true};">
+        <td class="text-center">
+          <input type="radio" name="selectRow" (change)="showChildTable(item.card_id)" [value]="item.isbn" />
+        </td>
+        <td class="text-center"> {{item.card_id}} </td>
+        <td class="text-center"> {{item.bname}} </td>
+        <td class="text-center"> {{item.sum}} </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls [autoHide]=true [hidden]="!aggregateTableFlag" (pageChange)="p = $event"></pagination-controls>
+</div>
+<div class="container">
+  <table class="table table-bordered table-responsive-sm table-striped table-light" [hidden]="!childTableFlag">
+    <thead>
+      <th class="font-weight-bold text-center"> </th>
+      <th class="font-weight-bold text-center">Loan ID</th>
+      <th class="font-weight-bold text-center">Name</th>
+      <th class="font-weight-bold text-center">Fine</th>
+      <th class="font-weight-bold text-center">Return Status</th>
+    </thead>
+    <tbody class="results-height">
+      <tr
+        *ngFor="let item of childTable | paginate: {itemsPerPage: 9, currentPage:p, autoHide: true, responsive: true};">
+        <td class="text-center">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" [disabled]="!item.date_in"
+              (change)="handleCheckBox($event.target.checked, item.loan_id)">
+          </div>
+        </td>
+        <td class="text-center"> {{item.loan_id}} </td>
+        <td class="text-center"> {{item.bname}} </td>
+        <td class="text-center"> ${{item.fine_amt}} </td>
+        <td class="text-center"> {{item.date_in ? 'Yes' : 'No'}} </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls [autoHide]=true [hidden]="!childTableFlag" (pageChange)="p = $event"></pagination-controls>
+  <button [hidden]="!(childTableFlag && aggregateTableFlag)" type="button" (click)="settleFines()"
+    class="btn btn-danger col-2 m-2" [disabled]="selectedChildRecords.length == 0">Settle</button>
+</div>
+<div class="container text-center no-result-label" *ngIf="aggregateTable.length == 0">
+  No fines to display
+</div>

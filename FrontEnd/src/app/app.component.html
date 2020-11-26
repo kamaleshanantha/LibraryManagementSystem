@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">Bookish</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/booksearch']" routerLinkActive="active">Books</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/checkinbooks']" routerLinkActive="active">Check-in</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/addborrower']" routerLinkActive="active">Add-Borrower</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/fines']" routerLinkActive="active">Fines</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container mt-3">
+  <router-outlet></router-outlet>
+</div>

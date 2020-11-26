@@ -1,0 +1,56 @@
+<div class="container">
+  <form [formGroup]="searchForm" (ngSubmit)="handleSearchQuery(searchForm.value)">
+    <!-- Search -->
+    <div class="form-group row">
+      <div class="input-group input-group col-lg-5">
+        <input type="text" autocomplete="off" class="form-control" placeholder="Search..." [ngClass]="{'is-invalid': searchForm.controls['search'].invalid
+            && searchForm.controls['search'].touched,
+            'is-valid': searchForm.controls['search'].valid
+            && searchForm.controls['search'].touched}" id="search" name="search" formControlName="search">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" type="submit" [disabled]="searchForm.invalid">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-3 alert-danger p-2 text-center rounded mt-lg-0 ml-3" *ngIf="searchForm.controls['search'].hasError('required')
+      &&(searchForm.controls['search'].dirty || searchForm.controls['search'].touched)">
+        Enter your search query
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <table class="table table-bordered table-responsive-sm table-striped table-light" [hidden]="!showTable">
+    <thead>
+      <th class="font-weight-bold text-center"> </th>
+      <th class="font-weight-bold text-center">Loan ID</th>
+      <th class="font-weight-bold text-center">ISBN</th>
+      <th class="font-weight-bold text-center">Card ID</th>
+      <th class="font-weight-bold text-center">Borrower</th>
+      <th class="font-weight-bold text-center">Date out</th>
+      <th class="font-weight-bold text-center">Due date</th>
+    </thead>
+    <tbody class="results-height">
+      <tr *ngFor="let item of searchResults; let i = index">
+        <td class="text-center">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" (change)="handleCheckBox($event.target.checked, item.loan_id)" id="i_{{i}}">
+          </div>
+        </td>
+        <td class="text-center"> {{item.loan_id}} </td>
+        <td class="text-center"> {{item.isbn}} </td>
+        <td class="text-center"> {{item.card_id}} </td>
+        <td class="text-center"> {{item.bname}} </td>
+        <td class="text-center"> {{item.date_out | date: 'MM/dd/yyyy'}} </td>
+        <td class="text-center"> {{item.due_date | date: 'MM/dd/yyyy'}} </td>
+      </tr>
+    </tbody>
+  </table>
+  <button [hidden]="!showTable" type="button" (click)="checkInBooks()" class="btn btn-danger col-2 m-2"
+    [disabled]="selectedRecords.length == 0">Check In</button>
+</div>
+<div class="container text-center no-result-label" *ngIf="loaded && !showTable">
+  No Results found
+</div>

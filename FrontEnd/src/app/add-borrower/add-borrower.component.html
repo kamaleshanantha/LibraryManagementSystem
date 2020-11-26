@@ -1,0 +1,87 @@
+<form [formGroup]="addBorrowersForm" (ngSubmit)="saveBorrowers(addBorrowersForm.value)">
+  <!-- name -->
+  <div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label">Name*</label>
+    <div class="col-lg-6">
+      <input type="text" class="form-control" [ngClass]="{'is-invalid': addBorrowersForm.controls['name'].invalid
+    && addBorrowersForm.controls['name'].touched,
+    'is-valid': addBorrowersForm.controls['name'].valid
+    && addBorrowersForm.controls['name'].touched}" id="name" name="name" formControlName="name">
+    </div>
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0" *ngIf="addBorrowersForm.controls['name'].hasError('required')
+    &&(addBorrowersForm.controls['name'].dirty || addBorrowersForm.controls['name'].touched)">
+      Name field is required
+    </div>
+
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0" *ngIf="addBorrowersForm.controls['name'].hasError('pattern')
+    && !(addBorrowersForm.controls['name'].hasError('minlength') || addBorrowersForm.controls['name'].hasError('maxlength'))&&(addBorrowersForm.controls['name'].dirty
+     || addBorrowersForm.controls['name'].touched)">
+      Please enter a valid Name
+    </div>
+  </div>
+  <!-- ssn -->
+  <div class="form-group row">
+    <label for="ssn" class="col-sm-2 col-form-label">SSN*</label>
+    <div class="col-lg-6">
+      <input type="text" [ngClass]="{'is-invalid': addBorrowersForm.controls['ssn'].invalid
+    && (addBorrowersForm.controls['ssn'].touched || addBorrowersForm.controls['ssn'].dirty),
+    'is-valid': addBorrowersForm.controls['ssn'].valid
+    && (addBorrowersForm.controls['ssn'].touched || addBorrowersForm.controls['ssn'].dirty)}"
+        class="form-control col-4" id="ssn" formControlName="ssn">
+    </div>
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0" *ngIf="addBorrowersForm.controls['ssn'].hasError('required')
+    &&(addBorrowersForm.controls['ssn'].dirty || addBorrowersForm.controls['ssn'].touched)">
+      SSN is a required field
+    </div>
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0" *ngIf="addBorrowersForm.controls['ssn'].hasError('pattern')
+    &&(addBorrowersForm.controls['ssn'].dirty || addBorrowersForm.controls['ssn'].touched)">
+      Invalid input for SSN
+    </div>
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0" *ngIf="!addBorrowersForm.controls['ssn'].hasError('pattern') && addBorrowersForm.controls['ssn'].hasError('minlength')
+    &&(addBorrowersForm.controls['ssn'].dirty || addBorrowersForm.controls['ssn'].touched)">
+      SSN must be 9 characters
+    </div>
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0" *ngIf="!addBorrowersForm.controls['ssn'].hasError('pattern') && addBorrowersForm.controls['ssn'].hasError('maxlength')
+    &&(addBorrowersForm.controls['ssn'].dirty || addBorrowersForm.controls['ssn'].touched)">
+      SSN must be 9 characters
+    </div>
+  </div>
+  <!--Address-->
+  <div class="form-group row">
+    <label for="address" class="col-sm-2 col-form-label">Address*</label>
+    <div class="col-lg-6">
+      <input type="textarea" class="form-control" [ngClass]="{'is-invalid': addBorrowersForm.controls['address'].invalid
+      && addBorrowersForm.controls['address'].touched,
+      'is-valid': addBorrowersForm.controls['address'].valid
+      && addBorrowersForm.controls['address'].touched}" id="address" name="address" formControlName="address">
+    </div>
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0 m-3" *ngIf="addBorrowersForm.controls['address'].hasError('required')
+      &&(addBorrowersForm.controls['address'].dirty || addBorrowersForm.controls['address'].touched)">
+      Address field is required
+    </div>
+  </div>
+  <!--Phone-->
+  <div class="form-group row">
+    <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+    <div class="col-lg-6">
+      <input type="text" [ngClass]="{'is-invalid': addBorrowersForm.controls['phone'].invalid
+    && (addBorrowersForm.controls['phone'].touched || addBorrowersForm.controls['phone'].dirty),
+    'is-valid': addBorrowersForm.controls['phone'].valid
+    && (addBorrowersForm.controls['phone'].touched || addBorrowersForm.controls['phone'].dirty)}"
+        class="form-control col-4" id="phone" formControlName="phone">
+    </div>
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0" *ngIf="addBorrowersForm.controls['phone'].hasError('pattern')
+    &&(addBorrowersForm.controls['phone'].dirty || addBorrowersForm.controls['phone'].touched)">
+      Invalid input for Phone
+    </div>
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0" *ngIf="!addBorrowersForm.controls['phone'].hasError('pattern') && addBorrowersForm.controls['phone'].hasError('minlength')
+    &&(addBorrowersForm.controls['phone'].dirty || addBorrowersForm.controls['phone'].touched)">
+      Phone must be 10 characters
+    </div>
+    <div class="alert-danger p-2 rounded ml-lg-3 mt-lg-0" *ngIf="!addBorrowersForm.controls['phone'].hasError('pattern') && addBorrowersForm.controls['phone'].hasError('maxlength')
+    &&(addBorrowersForm.controls['phone'].dirty || addBorrowersForm.controls['phone'].touched)">
+      Phone must be 10 characters
+    </div>
+  </div>
+  <button type="submit" class="btn btn-danger" [disabled]="addBorrowersForm.invalid">Submit</button>
+</form>
